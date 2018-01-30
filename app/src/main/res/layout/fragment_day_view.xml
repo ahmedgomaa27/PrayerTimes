@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    android:background="@color/primary_light">
+
+    <TextView
+        android:id="@+id/tv_day_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="@dimen/header_text_size"
+        android:layout_marginTop="@dimen/margin_top"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/tv_day_date">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical"
+        android:padding="@dimen/layout_padding">
+
+        <include
+            android:id="@+id/fajr_card"
+            layout="@layout/prayer_card_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"/>
+
+        <include
+            android:id="@+id/sunrise_card"
+            layout="@layout/prayer_card_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"/>
+
+        <include
+            android:id="@+id/zuhr_card"
+            layout="@layout/prayer_card_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"/>
+
+        <include
+            android:id="@+id/asr_card"
+            layout="@layout/prayer_card_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"/>
+
+        <include
+            android:id="@+id/maghrib_card"
+            layout="@layout/prayer_card_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"/>
+
+        <include
+            android:id="@+id/isha_card"
+            layout="@layout/prayer_card_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

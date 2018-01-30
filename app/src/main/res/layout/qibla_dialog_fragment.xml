@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<FrameLayout
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:padding="@dimen/layout_padding">
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:id="@+id/compass_image"
+        android:src="@drawable/compass"
+        android:padding="@dimen/layout_padding"/>
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:id="@+id/arrow_image"
+        android:src="@drawable/arrow"
+        android:padding="@dimen/layout_padding"/>
+
+</FrameLayout>
+
+    <TextView
+        android:layout_margin="@dimen/margin_top"
+
+        android:padding="@dimen/layout_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/header_text_size"
+        android:text="@string/qibla_note_text"/>
+
+</LinearLayout>
