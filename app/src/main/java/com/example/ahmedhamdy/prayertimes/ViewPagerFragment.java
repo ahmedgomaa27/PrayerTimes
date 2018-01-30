@@ -1,10 +1,15 @@
 package com.example.ahmedhamdy.prayertimes;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,6 +23,7 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.parceler.Parcels;
 
@@ -85,23 +91,43 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
         double longitude = loc.getLongitude();
         double altitude = loc.getAltitude();
 
+        FirebaseCrash.log(" User Location has been Loaded");
+
         // save user location in shared preferences
         editor.putString(USER_LAT,String.valueOf(latitude));
         editor.putString(USER_LONG,String.valueOf(longitude));
         editor.putString(USER_ALT,String.valueOf(altitude));
 
-        String url = PrayersHelper.PrayerUrl(latitude,longitude
+        final String url = PrayersHelper.PrayerUrl(latitude,longitude
                 ,DateHelper.getCurrentMonthAsInt()
                 ,DateHelper.getCurrentYear());
 
+
         PrayersHelper.setContext(getContext());
         mRequest = Volley.newRequestQueue(getContext());
-        PrayersHelper.getPrayersJsonArray(url,mRequest);
 
+        if (!isNetworkAvailable())
+        {
+            Snackbar.make(getView(),"No Internet Connection",Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (isNetworkAvailable())
+                        PrayersHelper.getPrayersJsonArray(url, mRequest);
+                }
+            }).setActionTextColor(Color.WHITE).show();
+
+        }
+
+        else {
+            PrayersHelper.getPrayersJsonArray(url, mRequest);
+        }
     }
 
     @Override
     public void prayersListLoaded(ArrayList<Prayers> prayersArrayList) {
+
+        FirebaseCrash.log("Prayers Times have been loaded successfully");
 
         pb.setVisibility(View.GONE);
         currentMonthPrayersList = new ArrayList<>();
@@ -143,6 +169,12 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
         super.onSaveInstanceState(outState);
         outState.putParcelable(PRAYERS_ARRAY_KEY, Parcels.wrap(currentMonthPrayersList));
 
+    }
+
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
 }

@@ -3,6 +3,8 @@ package com.example.ahmedhamdy.prayertimes;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import org.json.JSONArray;
 
 import java.util.ArrayList;
@@ -21,13 +23,18 @@ public static PrayersListListener prayersListener;
 
     @Override
     protected ArrayList<Prayers> doInBackground(JSONArray... jsonArrays) {
-       return PrayersHelper.getPrayersAsString(jsonArrays[0]);
+
+        FirebaseCrash.log("Asynck Task to manage prayers starts background operations");
+
+        return PrayersHelper.getPrayersAsString(jsonArrays[0]);
+
 
     }
 
     @Override
     protected void onPostExecute(ArrayList<Prayers> prayers) {
 
+        FirebaseCrash.log("Asynck Task finished background operations");
         prayersListener.prayersListLoaded(prayers);
 
     }

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "586483919457",
+    "firebase_url": "https://prayertimes-cd5f1.firebaseio.com",
+    "project_id": "prayertimes-cd5f1",
+    "storage_bucket": "prayertimes-cd5f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:586483919457:android:42a3beae9be81244",
+        "android_client_info": {
+          "package_name": "com.example.ahmedhamdy.prayertimes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "586483919457-2jloh1kd67kcr5onssb1gafh5t9fcb49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ahmedhamdy.prayertimes",
+            "certificate_hash": "dd0009def87f89e8d876a984f83f791fdbc62e47"
+          }
+        },
+        {
+          "client_id": "586483919457-843davrol7mus3f5f1k431k73ns6vq0c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh-GeWSZqwxlKUbuW0BUC8OfWpX6Wo6fQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "586483919457-843davrol7mus3f5f1k431k73ns6vq0c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
