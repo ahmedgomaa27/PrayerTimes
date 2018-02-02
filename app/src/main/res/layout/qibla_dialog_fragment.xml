@@ -17,13 +17,15 @@
         android:layout_height="200dp"
         android:id="@+id/compass_image"
         android:src="@drawable/compass"
-        android:padding="@dimen/layout_padding"/>
+        android:padding="@dimen/layout_padding"
+        android:contentDescription="@string/compass_image"/>
 
     <ImageView
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:id="@+id/arrow_image"
         android:src="@drawable/arrow"
+        android:contentDescription="@string/qibla_direction"
         android:padding="@dimen/layout_padding"/>
 
 </FrameLayout>

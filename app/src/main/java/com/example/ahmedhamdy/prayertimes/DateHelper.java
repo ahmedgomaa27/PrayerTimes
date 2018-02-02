@@ -3,7 +3,6 @@ package com.example.ahmedhamdy.prayertimes;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 /**
  * Created by ahmed hamdy on 1/17/2018.
@@ -38,10 +37,14 @@ public static Calendar changeCalendarDate(int amount){
       calendar.add(Calendar.DATE,amount);
       return calendar;
 }
+    
+/*
 public static Date getNextDate(){
 
     return DateHelper.changeCalendarDate(1).getTime();
-}
+} */
+
+
 public static int getCurrentDayAsInt(){
 
     return  DateHelper.getInstance().get(Calendar.DAY_OF_MONTH);

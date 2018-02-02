@@ -1,6 +1,5 @@
 package com.example.ahmedhamdy.prayertimes;
 
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.GeomagneticField;
@@ -12,7 +11,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +58,7 @@ public class QiblaDialogFragment extends android.support.v4.app.DialogFragment i
             // for the system's orientation sensor registered listeners
             mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);//SensorManager.SENSOR_DELAY_Fastest
         }else{
-            Toast.makeText(mContext,"Not Supported", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.sensor_not_supported, Toast.LENGTH_SHORT).show();
         }
 
 
