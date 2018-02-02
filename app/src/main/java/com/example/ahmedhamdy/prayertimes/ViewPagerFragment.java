@@ -22,6 +22,11 @@ import android.widget.ProgressBar;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
@@ -43,6 +48,8 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
     public static final String USER_LONG = "longitude";
     public static final String USER_ALT="altitude";
 
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +59,22 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
             LocationHelper.mListener = this;
             PrayersAsynckTask.prayersListener = this;
             LocationHelper.getUserLocation(getContext());
+        }
+        else {
+
+            ValueEventListener  dataListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                     currentMonthPrayersList = (ArrayList<Prayers>) dataSnapshot.getValue();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
+            mDatabase.getReference().addValueEventListener(dataListener);
+
         }
 
     }
@@ -124,6 +147,13 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
 
     @Override
     public void prayersListLoaded(ArrayList<Prayers> prayersArrayList) {
+
+
+        // handle database
+        mDatabase.setPersistenceEnabled(true);
+        DatabaseReference mRef = mDatabase.getReference();
+
+        mRef.setValue(prayersArrayList);
 
         FirebaseCrash.log("Prayers Times have been loaded successfully");
 
