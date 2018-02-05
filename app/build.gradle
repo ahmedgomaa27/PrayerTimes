@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'key0'
             keyPassword '1234qwer'
-            storeFile file('D:/UDACITY Nanodegree Program/Capstone Project/demo.jks')
+            storeFile file('D:/UDACITY Nanodegree Program/Capstone Project/PrayerTimes/demo.jks')
             storePassword '1234qwer'
         }
     }

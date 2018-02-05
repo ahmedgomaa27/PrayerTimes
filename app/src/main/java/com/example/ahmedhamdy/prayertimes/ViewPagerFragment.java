@@ -62,9 +62,11 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
         }
         else {
 
+
             ValueEventListener  dataListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists())
                      currentMonthPrayersList = (ArrayList<Prayers>) dataSnapshot.getValue();
                 }
 
@@ -73,6 +75,7 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
 
                 }
             };
+            mDatabase.setPersistenceEnabled(true);
             mDatabase.getReference().addValueEventListener(dataListener);
 
         }
@@ -129,7 +132,9 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
 
         if (!isNetworkAvailable())
         {
-            Snackbar.make(getView(),"No Internet Connection",Snackbar.LENGTH_INDEFINITE).setAction("Retry", new View.OnClickListener() {
+
+            Snackbar.make(getView(), R.string.snackbartext,Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry_snackbar
+                    , new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

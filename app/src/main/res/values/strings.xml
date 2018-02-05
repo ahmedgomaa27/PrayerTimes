@@ -10,4 +10,6 @@
     <string name="sensor_not_supported">Not Supported</string>
     <string name="compass_image">compass Image</string>
     <string name="qibla_direction">qibla direction</string>
+    <string name="snackbartext">No Internet Connection</string>
+    <string name="retry_snackbar">Retry</string>
 </resources>
