@@ -1,5 +1,6 @@
 package com.example.ahmedhamdy.prayertimes;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -98,9 +99,15 @@ private static  final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
 
         switch (item.getItemId()){
             case R.id.menu_qibla:
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                QiblaDialogFragment qiblaDialogFragment = new QiblaDialogFragment();
-                qiblaDialogFragment.show(fragmentManager,"qibla_fragment");
+
+
+                //FragmentManager fragmentManager = getSupportFragmentManager();
+                //QiblaFragment qiblaFragment = new QiblaFragment();
+               // qiblaFragment.show(fragmentManager,"qibla_fragment");
+
+                Intent intent = new Intent(this,QiblaActivity.class);
+                startActivity(intent);
+
 
                 break;
 

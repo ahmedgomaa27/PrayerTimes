@@ -7,6 +7,7 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -67,16 +69,20 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists())
-                     currentMonthPrayersList = (ArrayList<Prayers>) dataSnapshot.getValue();
+                    {
+                         currentMonthPrayersList = getPrayerObjectFromFireBase(dataSnapshot);
+                        // Toast.makeText(getContext(),dataSnapshot.child("0").child("fajrTime").getValue().toString(),Toast.LENGTH_LONG).show();
+                    }
+
                 }
+
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
             };
-            mDatabase.setPersistenceEnabled(true);
-            mDatabase.getReference().addValueEventListener(dataListener);
+           mDatabase.getReference().addValueEventListener(dataListener);
 
         }
 
@@ -155,11 +161,11 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
 
 
         // handle database
-        mDatabase.setPersistenceEnabled(true);
+
+
         DatabaseReference mRef = mDatabase.getReference();
 
         mRef.setValue(prayersArrayList);
-
         FirebaseCrash.log("Prayers Times have been loaded successfully");
 
         pb.setVisibility(View.GONE);
@@ -200,6 +206,7 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+
         outState.putParcelable(PRAYERS_ARRAY_KEY, Parcels.wrap(currentMonthPrayersList));
 
     }
@@ -208,6 +215,28 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    private ArrayList<Prayers> getPrayerObjectFromFireBase(DataSnapshot snapshot){
+        ArrayList<Prayers> prayersList  = new ArrayList<>();
+        //Prayers temp = new Prayers();
+        for (int i=0;i<snapshot.getChildrenCount();i++){
+            Prayers temp = new Prayers();
+            DataSnapshot dataSnapshot =  snapshot.child(String.valueOf(i));
+            temp.setFajrTime(dataSnapshot.child("fajrTime").getValue().toString());
+            temp.setSunRiseTime(dataSnapshot.child("sunRiseTime").getValue().toString());
+            temp.setDuhrTime(dataSnapshot.child("duhrTime").getValue().toString());
+            temp.setAsrTime(dataSnapshot.child("asrTime").getValue().toString());
+            temp.setMaghribTime(dataSnapshot.child("maghribTime").getValue().toString());
+            temp.setAishaTime(dataSnapshot.child("aishaTime").getValue().toString());
+            prayersList.add(temp);
+
+        }
+
+        return prayersList;
+
+
+
     }
 
 }

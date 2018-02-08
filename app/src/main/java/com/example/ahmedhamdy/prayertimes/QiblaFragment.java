@@ -25,7 +25,7 @@ import static android.content.Context.SENSOR_SERVICE;
  * Created by ahmed hamdy on 1/29/2018.
  */
 
-public class QiblaDialogFragment extends android.support.v4.app.DialogFragment implements SensorEventListener {
+public class QiblaFragment extends android.support.v4.app.Fragment implements SensorEventListener {
 
     public static final String USER_LAT = "latitude";
     public static final String USER_LONG = "longitude";
@@ -43,7 +43,7 @@ public class QiblaDialogFragment extends android.support.v4.app.DialogFragment i
     private static SensorManager mSensorManager ;
     private Sensor sensor;
 
-    public QiblaDialogFragment(){
+    public QiblaFragment(){
 
 
     }
@@ -69,7 +69,7 @@ public class QiblaDialogFragment extends android.support.v4.app.DialogFragment i
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.qibla_dialog_fragment,container,false);
+        return inflater.inflate(R.layout.qibla_fragment,container,false);
 
     }
 

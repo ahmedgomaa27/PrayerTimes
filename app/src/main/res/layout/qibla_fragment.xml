@@ -16,7 +16,7 @@
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:id="@+id/compass_image"
-        android:src="@drawable/compass"
+        android:src="@drawable/qibla_compass"
         android:padding="@dimen/layout_padding"
         android:contentDescription="@string/compass_image"/>
 
