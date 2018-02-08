@@ -7,6 +7,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.database.DataSnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -125,5 +126,28 @@ public static ArrayList<Prayers> getPrayersAsString(JSONArray jsonArray){
 
 return prayersArrayList;
 }
+
+
+    public static ArrayList<Prayers> getPrayerObjectFromFireBase(DataSnapshot snapshot){
+        ArrayList<Prayers> prayersList  = new ArrayList<>();
+        //Prayers temp = new Prayers();
+        for (int i=0;i<snapshot.getChildrenCount();i++){
+            Prayers temp = new Prayers();
+            DataSnapshot dataSnapshot =  snapshot.child(String.valueOf(i));
+            temp.setFajrTime(dataSnapshot.child("fajrTime").getValue().toString());
+            temp.setSunRiseTime(dataSnapshot.child("sunRiseTime").getValue().toString());
+            temp.setDuhrTime(dataSnapshot.child("duhrTime").getValue().toString());
+            temp.setAsrTime(dataSnapshot.child("asrTime").getValue().toString());
+            temp.setMaghribTime(dataSnapshot.child("maghribTime").getValue().toString());
+            temp.setAishaTime(dataSnapshot.child("aishaTime").getValue().toString());
+            prayersList.add(temp);
+
+        }
+
+        return prayersList;
+
+
+
+    }
 
 }

@@ -70,7 +70,7 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists())
                     {
-                         currentMonthPrayersList = getPrayerObjectFromFireBase(dataSnapshot);
+                         currentMonthPrayersList = PrayersHelper.getPrayerObjectFromFireBase(dataSnapshot);
                         // Toast.makeText(getContext(),dataSnapshot.child("0").child("fajrTime").getValue().toString(),Toast.LENGTH_LONG).show();
                     }
 
@@ -217,26 +217,6 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
-    private ArrayList<Prayers> getPrayerObjectFromFireBase(DataSnapshot snapshot){
-        ArrayList<Prayers> prayersList  = new ArrayList<>();
-        //Prayers temp = new Prayers();
-        for (int i=0;i<snapshot.getChildrenCount();i++){
-            Prayers temp = new Prayers();
-            DataSnapshot dataSnapshot =  snapshot.child(String.valueOf(i));
-            temp.setFajrTime(dataSnapshot.child("fajrTime").getValue().toString());
-            temp.setSunRiseTime(dataSnapshot.child("sunRiseTime").getValue().toString());
-            temp.setDuhrTime(dataSnapshot.child("duhrTime").getValue().toString());
-            temp.setAsrTime(dataSnapshot.child("asrTime").getValue().toString());
-            temp.setMaghribTime(dataSnapshot.child("maghribTime").getValue().toString());
-            temp.setAishaTime(dataSnapshot.child("aishaTime").getValue().toString());
-            prayersList.add(temp);
 
-        }
-
-        return prayersList;
-
-
-
-    }
 
 }

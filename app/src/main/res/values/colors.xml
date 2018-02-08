@@ -16,4 +16,5 @@
     <color name="icons">#FFFFFF</color>
 
     <color name="divider">#BDBDBD</color>
+    <color name="white_color">#FFF</color>
 </resources>
