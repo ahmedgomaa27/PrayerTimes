@@ -58,19 +58,7 @@ public class LocationHelper {
 
             }
         });
-
-
-     /*   SmartLocation.with(context).location().oneFix().start(new OnLocationUpdatedListener() {
-            @Override
-            public void onLocationUpdated(Location location) {
-
-
-                mListener.isLocationIsLoaded(location);
-
-            }
-        });
-
-        */
+        
 
     }
 }
