@@ -127,6 +127,7 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
         editor.putString(USER_LAT,String.valueOf(latitude));
         editor.putString(USER_LONG,String.valueOf(longitude));
         editor.putString(USER_ALT,String.valueOf(altitude));
+        editor.apply();
 
         final String url = PrayersHelper.PrayerUrl(latitude,longitude
                 ,DateHelper.getCurrentMonthAsInt()
