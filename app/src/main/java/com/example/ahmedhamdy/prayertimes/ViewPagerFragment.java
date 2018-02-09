@@ -60,7 +60,7 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
         if (savedInstanceState ==null) {
             LocationHelper.mListener = this;
             PrayersAsynckTask.prayersListener = this;
-            LocationHelper.getUserLocation(getContext());
+            LocationHelper.getUserLocation(getActivity());
         }
         else {
 
