@@ -113,7 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment mainFragment = new ViewPagerFragment();
         transaction.add(R.id.mainView, mainFragment);
+
         transaction.commit();
+
     }
 }
 

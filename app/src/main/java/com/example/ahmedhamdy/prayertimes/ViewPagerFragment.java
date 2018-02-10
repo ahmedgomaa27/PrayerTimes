@@ -1,5 +1,6 @@
 package com.example.ahmedhamdy.prayertimes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -31,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by ahmed hamdy on 1/21/2018.
@@ -53,23 +55,18 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        LocationHelper.mListener = this;
+        PrayersAsynckTask.prayersListener = this;
         if (savedInstanceState == null) {
-            LocationHelper.mListener = this;
-            PrayersAsynckTask.prayersListener = this;
             LocationHelper.getUserLocation(getActivity());
         } else {
 
             ValueEventListener dataListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists() && isNetworkAvailable()) {
+                    if (dataSnapshot.exists()) {
                         currentMonthPrayersList = PrayersHelper.getPrayerObjectFromFireBase(dataSnapshot);
                     }
-                    else {
-                        LocationHelper.getUserLocation(getActivity());
-                    }
-
-
                 }
 
                 @Override
@@ -99,9 +96,11 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
 
         if (savedInstanceState != null) {
             currentMonthPrayersList = Parcels.unwrap(savedInstanceState.getParcelable(PRAYERS_ARRAY_KEY));
+            if (currentMonthPrayersList != null){
             myPagerAdapter = new MyPagerAdapter(getChildFragmentManager(), currentMonthPrayersList);
             mPager.setAdapter(myPagerAdapter);
             pb.setVisibility(View.GONE);
+            }
         }
 
 
@@ -131,14 +130,14 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
         PrayersHelper.setContext(getContext());
         mRequest = Volley.newRequestQueue(getContext());
 
-        if (!isNetworkAvailable()) {
+        if (!isNetworkAvailable(getActivity())) {
 
             Snackbar.make(getView(), R.string.snackbartext, Snackbar.LENGTH_INDEFINITE).setAction(R.string.retry_snackbar
                     , new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
-                            if (isNetworkAvailable())
+                            if (isNetworkAvailable(getActivity()))
                                 PrayersHelper.getPrayersJsonArray(url, mRequest);
                         }
                     }).setActionTextColor(Color.WHITE).show();
@@ -156,11 +155,18 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
         mRef.setValue(prayersArrayList);
         FirebaseCrash.log("Prayers Times have been loaded successfully");
 
-        pb.setVisibility(View.GONE);
+
         currentMonthPrayersList = new ArrayList<>();
         currentMonthPrayersList = prayersArrayList;
-        myPagerAdapter = new MyPagerAdapter(getChildFragmentManager(), prayersArrayList);
-        mPager.setAdapter(myPagerAdapter);
+        if (prayersArrayList != null && isAdded()){
+
+            pb.setVisibility(View.GONE);
+            myPagerAdapter = new MyPagerAdapter(getChildFragmentManager(), prayersArrayList);
+            mPager.setAdapter(myPagerAdapter);
+        }
+        else {
+            LocationHelper.getUserLocation(getActivity());
+        }
 
     }
 
@@ -172,8 +178,8 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
 
     }
 
-    private Boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static Boolean isNetworkAvailable(Activity activity) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
