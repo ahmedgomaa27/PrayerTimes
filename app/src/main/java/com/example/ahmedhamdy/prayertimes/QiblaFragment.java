@@ -29,38 +29,32 @@ public class QiblaFragment extends android.support.v4.app.Fragment implements Se
 
     public static final String USER_LAT = "latitude";
     public static final String USER_LONG = "longitude";
-    public static final String USER_ALT="altitude";
+    public static final String USER_ALT = "altitude";
 
 
-    public static ImageView compassImage,arrowImage;
-
+    public static ImageView compassImage, arrowImage;
+    // device sensor manager
+    private static SensorManager mSensorManager;
+    Context mContext;
+    Location userLoc = new Location("service Provider");
     // record the compass picture angle turned
     private float currentDegree = 0f;
     private float currentDegreeNeedle = 0f;
-    Context mContext;
-    Location userLoc = new Location("service Provider");
-    // device sensor manager
-    private static SensorManager mSensorManager ;
     private Sensor sensor;
 
-    public QiblaFragment(){
-
-
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getContext();
-        mSensorManager =  (SensorManager) mContext.getSystemService(SENSOR_SERVICE);
+        mSensorManager = (SensorManager) mContext.getSystemService(SENSOR_SERVICE);
         sensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-        if(sensor!=null) {
+        if (sensor != null) {
             // for the system's orientation sensor registered listeners
             mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);//SensorManager.SENSOR_DELAY_Fastest
-        }else{
+        } else {
             Toast.makeText(mContext, R.string.sensor_not_supported, Toast.LENGTH_SHORT).show();
         }
-
 
 
     }
@@ -69,7 +63,7 @@ public class QiblaFragment extends android.support.v4.app.Fragment implements Se
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.qibla_fragment,container,false);
+        return inflater.inflate(R.layout.qibla_fragment, container, false);
 
     }
 
@@ -93,25 +87,23 @@ public class QiblaFragment extends android.support.v4.app.Fragment implements Se
         destinationLoc.setLatitude(21.422487); //kaaba latitude setting
         destinationLoc.setLongitude(39.826206); //kaaba longitude setting
         SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        double user_Lat = Double.valueOf(mSettings.getString(USER_LAT,"31.11125"));
+        double user_Lat = Double.valueOf(mSettings.getString(USER_LAT, "31.11125"));
         userLoc.setLatitude(user_Lat);
-        double user_Long = Double.valueOf(mSettings.getString(USER_LONG,"29.3125"));
+        double user_Long = Double.valueOf(mSettings.getString(USER_LONG, "29.3125"));
         userLoc.setLongitude(user_Long);
-        double user_alt = Double.valueOf(mSettings.getString(USER_ALT,"21.11125"));
+        double user_alt = Double.valueOf(mSettings.getString(USER_ALT, "21.11125"));
         userLoc.setAltitude(user_alt);
 
 
-
-
-        bearTo=userLoc.bearingTo(destinationLoc);
+        bearTo = userLoc.bearingTo(destinationLoc);
         //bearTo = The angle from true north to the destination location from the point we're your currently standing.
 
         //head = The angle that you've rotated your phone from true north.
 
-        GeomagneticField geoField = new GeomagneticField( Double.valueOf( userLoc.getLatitude()).floatValue(), Double
-                .valueOf( userLoc.getLongitude() ).floatValue(),
-                Double.valueOf( userLoc.getAltitude() ).floatValue(),
-                System.currentTimeMillis() );
+        GeomagneticField geoField = new GeomagneticField(Double.valueOf(userLoc.getLatitude()).floatValue(), Double
+                .valueOf(userLoc.getLongitude()).floatValue(),
+                Double.valueOf(userLoc.getAltitude()).floatValue(),
+                System.currentTimeMillis());
         head -= geoField.getDeclination(); // converts magnetic north into true north
 
         if (bearTo < 0) {
@@ -119,10 +111,10 @@ public class QiblaFragment extends android.support.v4.app.Fragment implements Se
             //bearTo = -100 + 360  = 260;
         }
 
-    //This is where we choose to point it
+        //This is where we choose to point it
         float direction = bearTo - head;
 
-      // If the direction is smaller than 0, add 360 to get the rotation clockwise.
+        // If the direction is smaller than 0, add 360 to get the rotation clockwise.
         if (direction < 0) {
             direction = direction + 360;
         }
@@ -141,7 +133,6 @@ public class QiblaFragment extends android.support.v4.app.Fragment implements Se
 
         // how long the animation will take place
         compassAnimation.setDuration(210);
-
 
 
         // set the animation after the end of the reservation status

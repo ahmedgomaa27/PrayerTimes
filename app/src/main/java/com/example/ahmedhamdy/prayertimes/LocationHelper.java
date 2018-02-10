@@ -16,14 +16,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 public class LocationHelper {
 
-    private static FusedLocationProviderClient mFusedLocationClient;
-
-    interface LocationLoadedListener {
-        void isLocationIsLoaded(Location loc);
-    }
-
     public static LocationLoadedListener mListener;
-
+    private static FusedLocationProviderClient mFusedLocationClient;
 
     public static void getUserLocation(final Activity activity) {
 
@@ -59,5 +53,10 @@ public class LocationHelper {
             }
         });
 
+    }
+
+
+    interface LocationLoadedListener {
+        void isLocationIsLoaded(Location loc);
     }
 }

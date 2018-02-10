@@ -18,9 +18,8 @@ import java.util.ArrayList;
 public class PrayersWidget extends AppWidgetProvider {
 
 
-   static FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-
-   public static ArrayList<Prayers> mPrayersList = new ArrayList<>();
+    public static ArrayList<Prayers> mPrayersList = new ArrayList<>();
+    static FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
 
     static void updateAppWidget(final Context context, final AppWidgetManager appWidgetManager,
                                 final int appWidgetId) {
@@ -30,18 +29,18 @@ public class PrayersWidget extends AppWidgetProvider {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.exists())
-                mPrayersList = PrayersHelper.getPrayerObjectFromFireBase(dataSnapshot);
+                    mPrayersList = PrayersHelper.getPrayerObjectFromFireBase(dataSnapshot);
                 // Construct the RemoteViews object
-                Prayers  mTodayPrayers = new Prayers();
-                mTodayPrayers = mPrayersList.get(DateHelper.getCurrentDayAsInt() -1);
+                Prayers mTodayPrayers = new Prayers();
+                mTodayPrayers = mPrayersList.get(DateHelper.getCurrentDayAsInt() - 1);
                 RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.prayers_widget);
 
-                views.setTextViewText(R.id.widget_fajr,mTodayPrayers.getFajrTime().substring(0,5));
-               // views.setTextViewText(R.id.widget_sunrise,mTodayPrayers.getSunRiseTime());
-                views.setTextViewText(R.id.widget_dhur,mTodayPrayers.getDuhrTime().substring(0,5));
-                views.setTextViewText(R.id.widget_asr,mTodayPrayers.getAsrTime().substring(0,5));
-                views.setTextViewText(R.id.widget_maghrib,mTodayPrayers.getMaghribTime().substring(0,5));
-                views.setTextViewText(R.id.widget_isha,mTodayPrayers.getAishaTime().substring(0,5));
+                views.setTextViewText(R.id.widget_fajr, mTodayPrayers.getFajrTime().substring(0, 5));
+                // views.setTextViewText(R.id.widget_sunrise,mTodayPrayers.getSunRiseTime());
+                views.setTextViewText(R.id.widget_dhur, mTodayPrayers.getDuhrTime().substring(0, 5));
+                views.setTextViewText(R.id.widget_asr, mTodayPrayers.getAsrTime().substring(0, 5));
+                views.setTextViewText(R.id.widget_maghrib, mTodayPrayers.getMaghribTime().substring(0, 5));
+                views.setTextViewText(R.id.widget_isha, mTodayPrayers.getAishaTime().substring(0, 5));
 
                 // Instruct the widget manager to update the widget
                 appWidgetManager.updateAppWidget(appWidgetId, views);

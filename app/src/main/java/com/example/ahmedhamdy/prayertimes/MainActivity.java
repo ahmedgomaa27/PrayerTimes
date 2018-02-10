@@ -15,16 +15,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     FragmentManager manager;
-private static  final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar mToolbar =  findViewById(R.id.action_bar);
+        Toolbar mToolbar = findViewById(R.id.action_bar);
         setSupportActionBar(mToolbar);
-        if (savedInstanceState ==null){
+        if (savedInstanceState == null) {
 
             // Here, thisActivity is the current activity
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -50,8 +51,7 @@ private static  final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
                     // app-defined int constant. The callback method gets the
                     // result of the request.
                 }
-            }
-            else {
+            } else {
                 //TODO handle any required bundles
                 startMainFragment();
 
@@ -65,61 +65,50 @@ private static  final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-            switch (requestCode) {
-                case MY_PERMISSIONS_REQUEST_LOCATION: {
-                    // If request is cancelled, the result arrays are empty.
-                    if (grantResults.length > 0
-                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                        // permission was granted, yay! Do the
-                        // contacts-related task you need to do.
-                        startMainFragment();
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    startMainFragment();
 
 
-                    }
-
-                    return;
                 }
 
-                // other 'case' lines to check for other
-                // permissions this app might request.
+                return;
             }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       // return super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main_menu,menu);
-        return  true;
+        // return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_qibla:
 
-
-                //FragmentManager fragmentManager = getSupportFragmentManager();
-                //QiblaFragment qiblaFragment = new QiblaFragment();
-               // qiblaFragment.show(fragmentManager,"qibla_fragment");
-
-                Intent intent = new Intent(this,QiblaActivity.class);
+                Intent intent = new Intent(this, QiblaActivity.class);
                 startActivity(intent);
-
-
                 break;
-
-
         }
-
-
-        return  true;
+        return true;
     }
 
-    private void startMainFragment(){
+    private void startMainFragment() {
 
-         manager = getSupportFragmentManager();
+        manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
         Fragment mainFragment = new ViewPagerFragment();

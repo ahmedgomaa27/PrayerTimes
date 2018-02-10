@@ -1,8 +1,8 @@
 package com.example.ahmedhamdy.prayertimes;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 public class QiblaActivity extends AppCompatActivity {
@@ -12,16 +12,16 @@ public class QiblaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qibla);
 
-        Toolbar mToolbar =  findViewById(R.id.action_bar);
+        Toolbar mToolbar = findViewById(R.id.action_bar);
         mToolbar.setTitle(R.string.qibla_activty_title);
         setSupportActionBar(mToolbar);
 
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             QiblaFragment qiblaFragment = new QiblaFragment();
-            fragmentManager.beginTransaction().add(R.id.qibla_fragment_container,qiblaFragment).commit();
+            fragmentManager.beginTransaction().add(R.id.qibla_fragment_container, qiblaFragment).commit();
 
 
         }

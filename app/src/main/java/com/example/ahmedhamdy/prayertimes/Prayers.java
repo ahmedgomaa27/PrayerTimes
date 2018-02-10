@@ -1,7 +1,6 @@
 package com.example.ahmedhamdy.prayertimes;
 
 import org.parceler.Parcel;
-import org.parceler.ParcelClass;
 
 /**
  * Created by ahmed hamdy on 1/16/2018.
@@ -10,14 +9,14 @@ import org.parceler.ParcelClass;
 @Parcel
 
 public class Prayers {
-    private  String fajrTime;
-    private  String sunRiseTime;
-    private  String duhrTime;
-    private  String asrTime;
-    private  String maghribTime;
-    private  String aishaTime;
+    private String fajrTime;
+    private String sunRiseTime;
+    private String duhrTime;
+    private String asrTime;
+    private String maghribTime;
+    private String aishaTime;
 
-    public Prayers(){
+    public Prayers() {
 
 
     }

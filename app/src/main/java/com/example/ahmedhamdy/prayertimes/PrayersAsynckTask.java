@@ -13,13 +13,9 @@ import java.util.ArrayList;
  * Created by ahmed hamdy on 1/20/2018.
  */
 
-public class PrayersAsynckTask extends AsyncTask<JSONArray,ProgressBar,ArrayList<Prayers>> {
+public class PrayersAsynckTask extends AsyncTask<JSONArray, ProgressBar, ArrayList<Prayers>> {
 
-public interface PrayersListListener{
-    void prayersListLoaded(ArrayList<Prayers> prayersArrayList);
-}
-public static PrayersListListener prayersListener;
-
+    public static PrayersListListener prayersListener;
 
     @Override
     protected ArrayList<Prayers> doInBackground(JSONArray... jsonArrays) {
@@ -37,5 +33,9 @@ public static PrayersListListener prayersListener;
         FirebaseCrash.log("Asynck Task finished background operations");
         prayersListener.prayersListLoaded(prayers);
 
+    }
+
+    public interface PrayersListListener {
+        void prayersListLoaded(ArrayList<Prayers> prayersArrayList);
     }
 }

@@ -3,6 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item  android:id="@+id/menu_qibla"
-        android:title="Find Qibla "
+        android:title="@string/find_qibla"
         app:showAsAction="collapseActionView"/>
 </menu>

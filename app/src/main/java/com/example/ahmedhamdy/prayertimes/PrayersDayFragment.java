@@ -20,9 +20,9 @@ public class PrayersDayFragment extends Fragment {
 
     public static final String PRAYERS_DAY_KEY = "prayers";
     public static final String DAY_NUMBER_KEY = "day";
-    private  Prayers currentPrayers;
+    private Prayers currentPrayers;
     private int dayDate;
-    private String dayDateString=" ";
+    private String dayDateString = " ";
     private ArrayList<String> prayersNames = new ArrayList<>();
     private TextView mFajrTimeTextView;
     private TextView mSunriseTimeTextView;
@@ -31,11 +31,11 @@ public class PrayersDayFragment extends Fragment {
     private TextView mMaghribTimeTextView;
     private TextView mIshaTimeTextView;
 
-    public static PrayersDayFragment newInstance(Prayers dayPrayers , int dayNumber){
+    public static PrayersDayFragment newInstance(Prayers dayPrayers, int dayNumber) {
         Bundle args = new Bundle();
         args.putParcelable(PRAYERS_DAY_KEY, Parcels.wrap(dayPrayers));
 
-        args.putInt(DAY_NUMBER_KEY,dayNumber);
+        args.putInt(DAY_NUMBER_KEY, dayNumber);
         PrayersDayFragment fragment = new PrayersDayFragment();
         fragment.setArguments(args);
 
@@ -48,8 +48,7 @@ public class PrayersDayFragment extends Fragment {
         currentPrayers = Parcels.unwrap(getArguments().getParcelable(PRAYERS_DAY_KEY));
 
         dayDate = getArguments().getInt(DAY_NUMBER_KEY);
-        if (dayDate == DateHelper.getCurrentDayAsInt())
-        {
+        if (dayDate == DateHelper.getCurrentDayAsInt()) {
             dayDateString = "Today ";
         }
         dayDateString = dayDateString + String.valueOf(dayDate) + " " + DateHelper.getCurrentMonthAsString()
@@ -66,10 +65,9 @@ public class PrayersDayFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View mainView = inflater.inflate(R.layout.fragment_day_view,container,false);
 
 
-        return mainView;
+        return inflater.inflate(R.layout.fragment_day_view, container, false);
     }
 
     @Override
@@ -90,12 +88,12 @@ public class PrayersDayFragment extends Fragment {
         ((TextView) maghribCard.findViewById(R.id.tv_prayer_name)).setText(prayersNames.get(4));
         ((TextView) ishaCard.findViewById(R.id.tv_prayer_name)).setText(prayersNames.get(5));
 
-        mFajrTimeTextView =  fajrCard.findViewById(R.id.tv_prayer_time);
-        mSunriseTimeTextView =  sunriseCard.findViewById(R.id.tv_prayer_time);
-        mZuhrTimeTextView =  zuhrCard.findViewById(R.id.tv_prayer_time);
-        mAsrTimeTextView =  asrCard.findViewById(R.id.tv_prayer_time);
-        mMaghribTimeTextView =  maghribCard.findViewById(R.id.tv_prayer_time);
-        mIshaTimeTextView =  ishaCard.findViewById(R.id.tv_prayer_time);
+        mFajrTimeTextView = fajrCard.findViewById(R.id.tv_prayer_time);
+        mSunriseTimeTextView = sunriseCard.findViewById(R.id.tv_prayer_time);
+        mZuhrTimeTextView = zuhrCard.findViewById(R.id.tv_prayer_time);
+        mAsrTimeTextView = asrCard.findViewById(R.id.tv_prayer_time);
+        mMaghribTimeTextView = maghribCard.findViewById(R.id.tv_prayer_time);
+        mIshaTimeTextView = ishaCard.findViewById(R.id.tv_prayer_time);
 
         dayDateView.setText(dayDateString);
         mFajrTimeTextView.setText(currentPrayers.getFajrTime());
