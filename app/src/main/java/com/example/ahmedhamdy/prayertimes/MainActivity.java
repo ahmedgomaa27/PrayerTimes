@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar mToolbar = findViewById(R.id.action_bar);
         setSupportActionBar(mToolbar);
-        if (savedInstanceState == null) {
+
 
             // Here, thisActivity is the current activity
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -52,13 +52,13 @@ public class MainActivity extends AppCompatActivity {
                     // result of the request.
                 }
             } else {
-                //TODO handle any required bundles
+                if (savedInstanceState == null)
                 startMainFragment();
 
             }
 
 
-        }
+
 
     }
 
