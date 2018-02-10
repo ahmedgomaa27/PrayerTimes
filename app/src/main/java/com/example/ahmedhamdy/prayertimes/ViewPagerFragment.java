@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -84,10 +85,15 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View mainView = inflater.inflate(R.layout.fragment_day_view_pager, container, false);
-        mPager = mainView.findViewById(R.id.pager);
+        return inflater.inflate(R.layout.fragment_day_view_pager, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mPager = view.findViewById(R.id.pager);
         pb = getActivity().findViewById(R.id.progressbar);
-        return mainView;
     }
 
     @Override
@@ -96,11 +102,16 @@ public class ViewPagerFragment extends Fragment implements LocationHelper.Locati
 
         if (savedInstanceState != null) {
             currentMonthPrayersList = Parcels.unwrap(savedInstanceState.getParcelable(PRAYERS_ARRAY_KEY));
-            if (currentMonthPrayersList != null){
-            myPagerAdapter = new MyPagerAdapter(getChildFragmentManager(), currentMonthPrayersList);
-            mPager.setAdapter(myPagerAdapter);
-            pb.setVisibility(View.GONE);
+            if (currentMonthPrayersList != null) {
+                myPagerAdapter = new MyPagerAdapter(getChildFragmentManager(), currentMonthPrayersList);
+                mPager.setAdapter(myPagerAdapter);
+                pb.setVisibility(View.GONE);
             }
+            else{
+                // problem with lodaing data so start to get it again
+                LocationHelper.getUserLocation(getActivity());
+            }
+
         }
 
 
